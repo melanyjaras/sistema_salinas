@@ -1,15 +1,11 @@
 package bean;
-// Generated 16/09/2023 13:01:41 by Hibernate Tools 4.3.1
+// Generated 20/09/2023 18:06:06 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,18 +36,16 @@ public class MljfsClientes  implements java.io.Serializable {
      private String mljfsPais;
      private Date mljfsDataCadastro;
      private String mljfsObservacoes;
-     
 
     public MljfsClientes() {
     }
 
 	
-    public MljfsClientes(int mljfsId, String mljfsNome, Date mljfsDataCadastro) {
+    public MljfsClientes(int mljfsId, String mljfsNome) {
         this.mljfsId = mljfsId;
         this.mljfsNome = mljfsNome;
-        this.mljfsDataCadastro = mljfsDataCadastro;
     }
-    public MljfsClientes(int mljfsId, String mljfsNome, String mljfsSobrenome, String mljfsEmail, String mljfsTelefone, String mljfsEndereco, String mljfsCidade, String mljfsEstado, String mljfsCep, Date mljfsDataNascimento, String mljfsGenero, String mljfsEstadoCivil, String mljfsProfissao, String mljfsPais, Date mljfsDataCadastro, String mljfsObservacoes, Set mljfsVendases, Set mljfsVendases_1) {
+    public MljfsClientes(int mljfsId, String mljfsNome, String mljfsSobrenome, String mljfsEmail, String mljfsTelefone, String mljfsEndereco, String mljfsCidade, String mljfsEstado, String mljfsCep, Date mljfsDataNascimento, String mljfsGenero, String mljfsEstadoCivil, String mljfsProfissao, String mljfsPais, Date mljfsDataCadastro, String mljfsObservacoes) {
        this.mljfsId = mljfsId;
        this.mljfsNome = mljfsNome;
        this.mljfsSobrenome = mljfsSobrenome;
@@ -173,7 +167,7 @@ public class MljfsClientes  implements java.io.Serializable {
     }
 
     
-    @Column(name="mljfs_genero", length=1)
+    @Column(name="mljfs_genero", length=20)
     public String getMljfsGenero() {
         return this.mljfsGenero;
     }
@@ -212,8 +206,8 @@ public class MljfsClientes  implements java.io.Serializable {
         this.mljfsPais = mljfsPais;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="mljfs_data_cadastro", nullable=false, length=19)
+    @Temporal(TemporalType.DATE)
+    @Column(name="mljfs_data_cadastro", length=10)
     public Date getMljfsDataCadastro() {
         return this.mljfsDataCadastro;
     }
@@ -231,27 +225,11 @@ public class MljfsClientes  implements java.io.Serializable {
     public void setMljfsObservacoes(String mljfsObservacoes) {
         this.mljfsObservacoes = mljfsObservacoes;
     }
-/*
-@OneToMany(fetch=FetchType.LAZY, mappedBy="mljfsClientes")
-    public Set getMljfsVendases() {
-        return this.mljfsVendases;
-    }
-    
-    public void setMljfsVendases(Set mljfsVendases) {
-        this.mljfsVendases = mljfsVendases;
-    }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="mljfsClientes")
-    public Set getMljfsVendases_1() {
-        return this.mljfsVendases_1;
-    }
-    
-    public void setMljfsVendases_1(Set mljfsVendases_1) {
-        this.mljfsVendases_1 = mljfsVendases_1;
-    }
 
 
-*/
+
+
+
 
 }
 

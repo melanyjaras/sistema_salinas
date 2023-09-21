@@ -43,8 +43,11 @@ Contributor(s):
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/db_melany_salinas?zeroDateTimeBehavior=convertToNull</property>
-    <property name="hibernate.connection.username">root</property>
+   <!-- <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/db_melany_salinas?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">root</property>-->
+     <property name="hibernate.connection.url">jdbc:mysql://10.7.0.51:33062/db_melany_salinas?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">melany_salinas</property>
+    <property name="hibernate.connection.password">melany_salinas</property>
     <mapping class="bean.MljfsVendas"/>
     <mapping class="bean.MljfsVendasProdutos"/>
     <mapping class="bean.MljfsProdutos"/>

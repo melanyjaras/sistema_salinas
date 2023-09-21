@@ -129,7 +129,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jBtnConfirmar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jBtnAlterar" min="-2" pref="97" max="-2" attributes="0"/>
+                              <Component id="jBtnAlterar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jBtnPesquisar" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -214,9 +214,8 @@
                   <Component id="jFmtDataCadastro" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTxtObservacoes" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+              <EmptySpace min="64" pref="64" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jBtnAlterar" alignment="0" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jBtnIncluir" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBtnExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -224,8 +223,9 @@
                       <Component id="jBtnConfirmar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBtnPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="jBtnAlterar" alignment="1" min="-2" pref="29" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace pref="15" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -478,6 +478,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCboEstadoCivilActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>

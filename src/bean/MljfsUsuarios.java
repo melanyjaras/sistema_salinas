@@ -1,8 +1,6 @@
 package bean;
-// Generated 16/09/2023 13:01:41 by Hibernate Tools 4.3.1
+// Generated 20/09/2023 18:06:06 by Hibernate Tools 4.3.1
 
-
-import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;

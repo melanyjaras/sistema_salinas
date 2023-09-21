@@ -18,6 +18,7 @@ public class ClienteControle extends AbstractTableModel {
     
     public void setList(List lista){
         this.lista = lista;
+        this.fireTableDataChanged();
     }
     public MljfsClientes getBean(int row){
         return (MljfsClientes) lista.get(row);
@@ -69,19 +70,19 @@ public class ClienteControle extends AbstractTableModel {
             return "NOME";
         }
         if (column == 2){
-            return "CPF";
+            return "SOBRENOME";
         }
         if (column == 3){
-            return "RG";
+            return "EMAIL";
         }
         if (column == 4){
-            return "CEP";
+            return "TELEFONE";
         }
         if (column == 5){
-            return "CELULAR";
+            return "ENDERECO";
         }
         if (column == 6){
-            return "SENHA";
+            return "CIDADE";
         }
         return "";
     }

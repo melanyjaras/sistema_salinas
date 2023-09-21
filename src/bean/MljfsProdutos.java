@@ -1,15 +1,10 @@
 package bean;
-// Generated 16/09/2023 13:01:41 by Hibernate Tools 4.3.1
+// Generated 20/09/2023 18:06:06 by Hibernate Tools 4.3.1
 
 
-
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -25,7 +20,8 @@ public class MljfsProdutos  implements java.io.Serializable {
      private int mljfsId;
      private String mljfsNome;
      private Double mljfsPreco;
-     private Set mljfsVendasProdutoses = new HashSet(0);
+     private int mljfsQuantidadeEmEstoque;
+     private String mljfsDescricaoDoProduto;
 
     public MljfsProdutos() {
     }
@@ -36,11 +32,12 @@ public class MljfsProdutos  implements java.io.Serializable {
         this.mljfsNome = mljfsNome;
         this.mljfsPreco = mljfsPreco;
     }
-    public MljfsProdutos(int mljfsId, String mljfsNome, Double mljfsPreco, Set mljfsVendasProdutoses) {
+    public MljfsProdutos(int mljfsId, String mljfsNome, Double mljfsPreco, int mljfsQuantidadeEmEstoque, String mljfsDescricaoDoProduto) {
        this.mljfsId = mljfsId;
        this.mljfsNome = mljfsNome;
        this.mljfsPreco = mljfsPreco;
-       this.mljfsVendasProdutoses = mljfsVendasProdutoses;
+       this.mljfsQuantidadeEmEstoque = mljfsQuantidadeEmEstoque;
+       this.mljfsDescricaoDoProduto = mljfsDescricaoDoProduto;
     }
    
      @Id 
@@ -75,13 +72,24 @@ public class MljfsProdutos  implements java.io.Serializable {
         this.mljfsPreco = mljfsPreco;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="mljfsProdutos")
-    public Set getMljfsVendasProdutoses() {
-        return this.mljfsVendasProdutoses;
+    
+    @Column(name="mljfs_quantidade_em_estoque")
+    public int getMljfsQuantidadeEmEstoque() {
+        return this.mljfsQuantidadeEmEstoque;
     }
     
-    public void setMljfsVendasProdutoses(Set mljfsVendasProdutoses) {
-        this.mljfsVendasProdutoses = mljfsVendasProdutoses;
+    public void setMljfsQuantidadeEmEstoque(int mljfsQuantidadeEmEstoque) {
+        this.mljfsQuantidadeEmEstoque = mljfsQuantidadeEmEstoque;
+    }
+
+    
+    @Column(name="mljfs_descricao_do_produto", length=55)
+    public String getMljfsDescricaoDoProduto() {
+        return this.mljfsDescricaoDoProduto;
+    }
+    
+    public void setMljfsDescricaoDoProduto(String mljfsDescricaoDoProduto) {
+        this.mljfsDescricaoDoProduto = mljfsDescricaoDoProduto;
     }
 
 

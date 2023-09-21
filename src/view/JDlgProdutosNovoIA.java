@@ -5,7 +5,8 @@
  */
 package view;
 
-import dao.UsuariosDAO;
+import bean.MljfsProdutos;
+import dao.ProdutosDAO;
 import tools.Util;
 
 /**
@@ -21,7 +22,37 @@ public class JDlgProdutosNovoIA extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Inclusao");
+        
+        Util.limparCampos(jTxtId, jTxtNome, jTxtPreco, jTxtDescricao, jTxtQuantidade);
+        
+    }
+    private boolean incluindo;
+    
+    public void setIncluindo(boolean incluindo) {
+        this.incluindo = incluindo;
+        
+    }
+
+    private MljfsProdutos viewBean() {
+        MljfsProdutos produtos = new MljfsProdutos();
+        int id = Util.strInt(jTxtId.getText());
+        produtos.setMljfsId(id);
+        produtos.setMljfsNome(jTxtNome.getText());
+        Double preco = Util.strDouble(jTxtPreco.getText());
+        produtos.setMljfsPreco(preco);
+        int quantidade = Util.strInt(jTxtQuantidade.getText());
+        produtos.setMljfsQuantidadeEmEstoque(quantidade);
+        produtos.setMljfsDescricaoDoProduto(jTxtDescricao.getText());
+        return produtos;
+        
+    }
+    
+    public void beanView(MljfsProdutos produtos) {
+        jTxtId.setText(Util.intStr(produtos.getMljfsId()));
+        jTxtNome.setText(produtos.getMljfsNome());
+        jTxtPreco.setText(Util.doubleStr(produtos.getMljfsPreco()));
+        jTxtDescricao.setText(produtos.getMljfsDescricaoDoProduto());
+        jTxtQuantidade.setText(Util.intStr(produtos.getMljfsQuantidadeEmEstoque()));
     }
 
     /**
@@ -43,6 +74,10 @@ public class JDlgProdutosNovoIA extends javax.swing.JDialog {
         jBtnOk = new javax.swing.JButton();
         jBtnCancelar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jTxtDescricao = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jTxtQuantidade = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -86,6 +121,10 @@ public class JDlgProdutosNovoIA extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Times New Roman", 3, 24)); // NOI18N
         jLabel5.setText("Produtos Novo");
 
+        jLabel3.setText("Descrição");
+
+        jLabel4.setText("Quantidade em estoque");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,18 +138,24 @@ public class JDlgProdutosNovoIA extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTxtId, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTxtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(45, 45, 45)
-                                .addComponent(jLabel1)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jTxtDescricao, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jTxtId, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTxtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(45, 45, 45)
+                                        .addComponent(jLabel1))))
+                            .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4)
                             .addComponent(jLabel2)
-                            .addComponent(jTxtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTxtPreco, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+                            .addComponent(jTxtQuantidade))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -128,7 +173,15 @@ public class JDlgProdutosNovoIA extends javax.swing.JDialog {
                     .addComponent(jTxtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTxtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -145,8 +198,22 @@ public class JDlgProdutosNovoIA extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
-        
-        Util.limparCampos(jTxtId, jTxtNome, jTxtPreco);
+        if (incluindo) {
+            setTitle("Inclusao");
+            System.out.println("A variável booleana é verdadeira. Você está incluindo um novo funcionário.");
+            MljfsProdutos produtos = viewBean();
+            ProdutosDAO produtosDAO = new ProdutosDAO();
+            produtosDAO.insert(produtos);
+            setVisible(false);
+            
+        } else {
+            setTitle("Ateracao");
+            System.out.println("A variável booleana é falsa. Você está alterando um funcionário existente.");
+            MljfsProdutos produtos = viewBean();
+            ProdutosDAO produtosDAO = new ProdutosDAO();
+            produtosDAO.update(produtos);
+        }
+        Util.limparCampos(jTxtId, jTxtNome, jTxtPreco, jTxtDescricao, jTxtQuantidade);
     }//GEN-LAST:event_jBtnOkActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
@@ -208,11 +275,15 @@ public class JDlgProdutosNovoIA extends javax.swing.JDialog {
     private javax.swing.JButton jBtnOk;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField jTxtDescricao;
     private javax.swing.JTextField jTxtId;
     private javax.swing.JTextField jTxtNome;
     private javax.swing.JTextField jTxtPreco;
+    private javax.swing.JTextField jTxtQuantidade;
     // End of variables declaration//GEN-END:variables
 }

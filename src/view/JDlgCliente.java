@@ -7,8 +7,6 @@ package view;
 
 import bean.MljfsClientes;
 import dao.ClienteDAO;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import tools.Util;
@@ -39,19 +37,14 @@ public class JDlgCliente extends javax.swing.JDialog {
     private MljfsClientes viewBean() {
         MljfsClientes cliente = new MljfsClientes();
 
-        // Recupera o ID, nome e sobrenome
         int id = Util.strInt(jTxtId.getText());
         cliente.setMljfsId(id);
         cliente.setMljfsNome(jTxtNome.getText());
         cliente.setMljfsSobrenome(jTxtSobrenome.getText());
-
-        // Recupera a data de nascimento e data de cadastro
         Date dataNascimento = Util.StrDate(jFmtdataNasc.getText());
         cliente.setMljfsDataNascimento(dataNascimento);
-
         Date dataCadastro = Util.StrDate(jFmtDataCadastro.getText());
         cliente.setMljfsDataCadastro(dataCadastro);
-
         cliente.setMljfsEmail(jTxtEmail.getText());
         cliente.setMljfsTelefone(jFmtTelefone.getText());
         cliente.setMljfsProfissao(jTxtProfissao.getText());
@@ -59,38 +52,28 @@ public class JDlgCliente extends javax.swing.JDialog {
         cliente.setMljfsCep(jFmtCep.getText());
         cliente.setMljfsEndereco(jTxtEndereco.getText());
         cliente.setMljfsEstado(jTxtEstado.getText());
-
-//cliente.setDataDeRegistro(jFmtDataRegistro.getText());
         cliente.setMljfsPais(jTxtPais.getText());
-        if (jCboGenero.getSelectedItem().equals("Masculino")) {
+        if (jCboGenero.getSelectedIndex() == 1) {
             cliente.setMljfsGenero("M");
         } else {
             cliente.setMljfsGenero("F");
         }
 
-        String estado = cliente.getMljfsEstadoCivil();
-        switch (estado) {
-            case "Casado":
-                jCboGenero.setSelectedItem("Casado");
-                break;
-            case "Solteiro":
-                jCboGenero.setSelectedItem("Solteiro");
-                break;
-            case "Viuvo":
-                jCboGenero.setSelectedItem("Viuvo");
-                break;
-            case "Divorciado":
-                jCboGenero.setSelectedItem("Divorciado");
-                break;
-            default:
-                break;
+        if ((jCboEstadoCivil.getSelectedIndex() == 1)) {
+            cliente.setMljfsEstadoCivil("Solteiro");
+        } else if ((jCboEstadoCivil.getSelectedIndex() == 2)) {
+            cliente.setMljfsEstadoCivil("Viuvo");
+        } else if ((jCboEstadoCivil.getSelectedIndex() == 3)) {
+            cliente.setMljfsEstadoCivil("Divorciado");
+        } else {
+            cliente.setMljfsEstadoCivil("Casado");
         }
+        cliente.setMljfsObservacoes(jTxtObservacoes.getText());
 
         return cliente;
     }
 
     public void beanView(MljfsClientes cliente) {
-        // Preenche os campos com os dados do cliente
         jTxtId.setText(Util.intStr(cliente.getMljfsId()));
         jTxtNome.setText(cliente.getMljfsNome());
         jTxtSobrenome.setText(cliente.getMljfsSobrenome());
@@ -98,13 +81,21 @@ public class JDlgCliente extends javax.swing.JDialog {
 
         String genero = cliente.getMljfsGenero();
         if (genero.equals("M")) {
-            jCboGenero.setSelectedItem("Masculino");
+            jCboGenero.setSelectedIndex(1);
         } else {
-            jCboGenero.setSelectedItem("Feminino");
+            jCboGenero.setSelectedIndex(0);
         }
 
-        String estadoCivil = cliente.getMljfsEstadoCivil();
-        jCboEstadoCivil.setSelectedItem(estadoCivil);
+        String estCiv = cliente.getMljfsEstadoCivil();
+        if (estCiv.equals("Casado")) {
+            jCboEstadoCivil.setSelectedIndex(0);
+        } else if (estCiv.equals("Solteiro")) {
+            jCboEstadoCivil.setSelectedIndex(1);
+        } else if (estCiv.equals("Viuvo")) {
+            jCboEstadoCivil.setSelectedIndex(2);
+        } else {
+            jCboEstadoCivil.setSelectedIndex(3);
+        }
 
         jTxtEndereco.setText(cliente.getMljfsEndereco());
         jTxtCidade.setText(cliente.getMljfsCidade());
@@ -114,8 +105,6 @@ public class JDlgCliente extends javax.swing.JDialog {
         jFmtTelefone.setText(cliente.getMljfsTelefone());
         jTxtPais.setText(cliente.getMljfsPais());
         jTxtObservacoes.setText(cliente.getMljfsObservacoes());
-
-        // Converte as datas em strings e preenche os campos de data
         jFmtdataNasc.setText(Util.dateStr(cliente.getMljfsDataNascimento()));
         jFmtDataCadastro.setText(Util.dateStr(cliente.getMljfsDataCadastro()));
     }
@@ -335,6 +324,11 @@ public class JDlgCliente extends javax.swing.JDialog {
         jLabel2.setText("Estado Civil");
 
         jCboEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Casado", "Solteiro", "Viuvo", "Divorciado" }));
+        jCboEstadoCivil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCboEstadoCivilActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Observacoes");
 
@@ -424,7 +418,7 @@ public class JDlgCliente extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtnConfirmar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBtnAlterar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtnPesquisar))
                             .addGroup(layout.createSequentialGroup()
@@ -495,14 +489,14 @@ public class JDlgCliente extends javax.swing.JDialog {
                     .addComponent(jTxtObservacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jBtnIncluir)
                         .addComponent(jBtnExcluir)
                         .addComponent(jBtnCancelar)
                         .addComponent(jBtnConfirmar)
-                        .addComponent(jBtnPesquisar)))
-                .addContainerGap())
+                        .addComponent(jBtnPesquisar))
+                    .addComponent(jBtnAlterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -519,23 +513,12 @@ public class JDlgCliente extends javax.swing.JDialog {
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
         //desabilitar();
-        Util.habilitar(false, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jFmtTelefone, jTxtEndereco, jTxtCidade, jTxtEstado, jFmtCep, jFmtdataNasc, jCboGenero, jCboEstadoCivil, jTxtProfissao, jTxtPais, jFmtDataCadastro, jTxtObservacoes, jBtnAlterar, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar);
+        Util.habilitar(false, jBtnAlterar, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar);
         jBtnIncluir.setEnabled(true);
         jBtnPesquisar.setEnabled(true);
-
-        int resp = JOptionPane.showConfirmDialog(null, "Deseja alterar o registro?",
-                "Alterar", JOptionPane.YES_NO_OPTION);
-        if (resp == JOptionPane.YES_OPTION) {
-            MljfsClientes cliente = viewBean();
-            ClienteDAO cliente_DAO = new ClienteDAO();
-            cliente_DAO.update(cliente);
-            JOptionPane.showMessageDialog(null, "Registro atualizado com sucesso!");
-        } else {
-            JOptionPane.showMessageDialog(null, "Registro não encontrado!");
-        }
-        //limparDados();
+        jBtnConfirmar.setEnabled(true);
         incluindo = false;
-        Util.limparCampos(jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jFmtTelefone, jTxtEndereco, jTxtCidade, jTxtEstado, jFmtCep, jFmtdataNasc, jCboGenero, jCboEstadoCivil, jTxtProfissao, jTxtPais, jFmtDataCadastro, jTxtObservacoes);
+        //Util.limparCampos(jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jFmtTelefone, jTxtEndereco, jTxtCidade, jTxtEstado, jFmtCep, jFmtdataNasc, jCboGenero, jCboEstadoCivil, jTxtProfissao, jTxtPais, jFmtDataCadastro, jTxtObservacoes);
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jTxtPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtPaisActionPerformed
@@ -554,7 +537,7 @@ public class JDlgCliente extends javax.swing.JDialog {
             MljfsClientes cliente = viewBean();
             ClienteDAO cliente_DAO = new ClienteDAO();
             cliente_DAO.delete(cliente);
-            JOptionPane.showMessageDialog(null, "Exclusão feita com sucesso!.");
+            JOptionPane.showMessageDialog(null, "Exclusão bem sucedida!.");
 
         } else {
             JOptionPane.showMessageDialog(null, "Exclusão cancelada.");
@@ -575,11 +558,14 @@ public class JDlgCliente extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         //habilitar();
+        incluindo = true;
         Util.habilitar(true, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jFmtTelefone, jTxtEndereco, jTxtCidade, jTxtEstado, jFmtCep, jFmtdataNasc, jCboGenero, jCboEstadoCivil, jTxtProfissao, jTxtPais, jFmtDataCadastro, jTxtObservacoes, jBtnAlterar, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar);
+        Util.limparCampos(jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jFmtTelefone, jTxtEndereco, jTxtCidade, jTxtEstado, jFmtCep, jFmtdataNasc, jCboGenero, jCboEstadoCivil, jTxtProfissao, jTxtPais, jFmtDataCadastro, jTxtObservacoes);
         jBtnAlterar.setEnabled(false);
         jBtnIncluir.setEnabled(false);
         jBtnExcluir.setEnabled(false);
         jBtnPesquisar.setEnabled(false);
+        
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnIncluirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBtnIncluirKeyPressed
@@ -595,26 +581,23 @@ public class JDlgCliente extends javax.swing.JDialog {
 
         //limparDados();
         Util.limparCampos(jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jFmtTelefone, jTxtEndereco, jTxtCidade, jTxtEstado, jFmtCep, jFmtdataNasc, jCboGenero, jCboEstadoCivil, jTxtProfissao, jTxtPais, jFmtDataCadastro, jTxtObservacoes);
-
+        Util.mensagem("Operação cancelada");
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here:
-        //habilitar();
-        Util.habilitar(true, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jFmtTelefone, jTxtEndereco, jTxtCidade, jTxtEstado, jFmtCep, jFmtdataNasc, jCboGenero, jCboEstadoCivil, jTxtProfissao, jTxtPais, jFmtDataCadastro, jTxtObservacoes, jBtnAlterar, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar);
-        jBtnIncluir.setEnabled(false);
-        jBtnConfirmar.setEnabled(false);
 
         JDlgClientePesquisa jDlgClientePesquisa = new JDlgClientePesquisa(null, true);
         jDlgClientePesquisa.setTelaAnterior(this);
         jDlgClientePesquisa.setVisible(true);
+        
+         Util.habilitar(false, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jFmtTelefone, jTxtEndereco, jTxtCidade, jTxtEstado, jFmtCep, jFmtdataNasc, jCboGenero, jCboEstadoCivil, jTxtProfissao, jTxtPais, jFmtDataCadastro, jTxtObservacoes, jBtnAlterar, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar);
+        jBtnIncluir.setEnabled(true);
+        jBtnPesquisar.setEnabled(true);
+        jBtnAlterar.setEnabled(true);
+        jBtnExcluir.setEnabled(true);
+        jBtnCancelar.setEnabled(true);
 
-        String resposta = JOptionPane.showInputDialog(null, "Entre com o codigo. (PK)");
-        int id = Integer.parseInt(resposta);
-        ClienteDAO cliente_DAO = new ClienteDAO();
-
-        MljfsClientes cliente = (MljfsClientes) cliente_DAO.list(id);
-        beanView(cliente);
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
     private void jTxtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtIdActionPerformed
@@ -623,10 +606,9 @@ public class JDlgCliente extends javax.swing.JDialog {
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-        MljfsClientes cliente = viewBean();
+        MljfsClientes cliente = viewBean();//constroi o bean
 
-        ClienteDAO cliente_DAO = new ClienteDAO();
-
+        ClienteDAO cliente_DAO = new ClienteDAO();//constroi o dao
         if (incluindo == true) {
             cliente_DAO.insert(cliente);
             Util.mensagem("Cliente adicionado com sucesso!");
@@ -655,6 +637,10 @@ public class JDlgCliente extends javax.swing.JDialog {
     private void jFmtDataCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFmtDataCadastroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jFmtDataCadastroActionPerformed
+
+    private void jCboEstadoCivilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCboEstadoCivilActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCboEstadoCivilActionPerformed
 
     /**
      * @param args the command line arguments

@@ -8,6 +8,7 @@ package view;
 import bean.MljfsUsuarios;
 import dao.UsuariosDAO;
 import javax.swing.JOptionPane;
+import tools.Util;
 
 /**
  *
@@ -26,16 +27,16 @@ public class JFrmLogin extends javax.swing.JFrame {
 
     public MljfsUsuarios viewBean() {
         String username = jTxtUsuario.getText();
-        String password = new String(jPwfSenha.getPassword());
+        String senha = new String(jPwfSenha.getPassword());
 
         MljfsUsuarios usuarios = new MljfsUsuarios();
         usuarios.setMljfsNome(username);
-       // usuarios.setMljfsSenha(password);
+        usuarios.setMljfsSenha(senha);
 
         return usuarios;
     }
-    
-    private int contadorTentativas = 0; 
+
+    private int contadorTentativas = 0;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -172,27 +173,25 @@ public class JFrmLogin extends javax.swing.JFrame {
 
     private void jBtnAcessarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAcessarActionPerformed
         // TODO add your handling code here:
-        String apelido = jTxtUsuario.getText();
+        String sobrenome = jTxtUsuario.getText();
         String senha = new String(jPwfSenha.getPassword());
 
         UsuariosDAO usuarioDAO = new UsuariosDAO();
 
-       // if (usuarioDAO.buscarUsuarioPorNomeESenha(apelido, senha) != null) 
-        if ((jTxtUsuario.getText().equals("salinas")) && new String(jPwfSenha.getPassword()).equals("1234")){
-            JOptionPane.showMessageDialog(null, "Usuário logado com sucesso!");
-            
+        if (usuarioDAO.buscarUsuarioPorNomeESenha(sobrenome, senha) != null) {
+           Util.mensagem("Login efetuado com sucesso!");
+
             JFrmMljfsMenu JFrmMenu = new JFrmMljfsMenu();
             JFrmMenu.setVisible(true);
             JFrmLogin.this.dispose();
 
-
-            contadorTentativas = 0; 
+            contadorTentativas = 0;
         } else {
             contadorTentativas++;
-            JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválidos! Tentativa " + contadorTentativas + "/3");
+            Util.mensagem( "Usuário e/ou senha inválidos! Tentativa " + contadorTentativas + "/3");
 
             if (contadorTentativas >= 3) {
-                JOptionPane.showMessageDialog(null, "Você excedeu o número máximo de tentativas. O programa será encerrado.");
+                Util.mensagem("Você excedeu o número máximo de tentativas. O programa será encerrado.");
                 System.exit(0);
             }
         }
@@ -204,6 +203,7 @@ public class JFrmLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         jTxtUsuario.setText("");
         jPwfSenha.setText("");
+        setVisible(false);
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnAcessarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBtnAcessarKeyPressed

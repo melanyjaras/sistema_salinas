@@ -5,6 +5,10 @@
  */
 package view;
 
+import bean.MljfsProdutos;
+import controles.ProdutosController;
+import dao.ProdutosDAO;
+import java.util.List;
 import javax.swing.JOptionPane;
 import tools.Util;
 
@@ -14,17 +18,22 @@ import tools.Util;
  */
 public class JDlgProdutosNovo extends javax.swing.JDialog {
 
+    private boolean incluindo = true;
     /**
      * Creates new form JDlgProdutosNovo
      */
-    JDlgProdutosNovoIA jDlgProdutosNovoIA;
+    JDlgProdutosNovoIA jDlgProdutosNovoIA = new JDlgProdutosNovoIA(null, true);
+    private ProdutosController produtosController = new ProdutosController();
 
     public JDlgProdutosNovo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Cadastro de usuários");
-        jDlgProdutosNovoIA = new JDlgProdutosNovoIA(null, true);
+        setTitle("Produtos");
+        ProdutosDAO produtos_DAO = new ProdutosDAO();
+        List lista = produtos_DAO.listAll();
+        produtosController.setList(lista);
+        jTable1.setModel(produtosController);
     }
 
     /**
@@ -112,24 +121,63 @@ public class JDlgProdutosNovo extends javax.swing.JDialog {
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         // TODO add your handling code here:
         /**/
-        if (Util.perguntar("Deseja excluir o usuário?") == true) {
-
+       if (Util.perguntar("Deseja excluir o Produto?") == true) {
+            int sel = jTable1.getSelectedRow();
+            MljfsProdutos produtos = produtosController.getBean(sel);
+            ProdutosDAO produtos_DAO = new ProdutosDAO();
+            produtos_DAO.delete(produtos);
+            JOptionPane.showMessageDialog(null, "Exclusão realizada!.");
+            
+        List lista = produtos_DAO.listAll();
+        produtosController.setList(lista);
+        jTable1.setModel(produtosController);
         } else {
-            //Util.mensagem(cadeia);
+            Util.mensagem("Operacao cancelada");
         }
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
+        this.incluindo = false;
+        incluindo = false;
+        setIncluindo(false);
         jDlgProdutosNovoIA.setTitle("Alteracao");
-        jDlgProdutosNovoIA.setVisible(true);
+        int rowSel = jTable1.getSelectedRow();
+        if (rowSel != -1) {
+            MljfsProdutos produtos = produtosController.getBean(rowSel);
+            jDlgProdutosNovoIA.beanView(produtos);
+
+        abrirTela();
+        } else {
+            Util.mensagem("Selecione um registro para alterar.");
+        }
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        jDlgProdutosNovoIA.setVisible(true);
+        this.incluindo = true;
+        incluindo = true;
+        setIncluindo(true);
+        jDlgProdutosNovoIA.setTitle("Inclusao");
+       
+        abrirTela();
+         ProdutosDAO produtos_DAO = new ProdutosDAO();
+        List lista = produtos_DAO.listAll();
+        produtosController.setList(lista);
+        jTable1.setModel(produtosController);
     }//GEN-LAST:event_jBtnIncluirActionPerformed
+ public boolean isIncluindo() {
+        return incluindo;
+    }
 
+    public void setIncluindo(boolean incluindo) {
+        this.incluindo = incluindo;
+    }
+    
+    private void abrirTela() {
+        jDlgProdutosNovoIA.setIncluindo(incluindo); // Configura a variável incluindo na Tela2
+        jDlgProdutosNovoIA.setVisible(true);
+    }
     /**
      * @param args the command line arguments
      */

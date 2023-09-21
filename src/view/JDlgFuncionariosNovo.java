@@ -5,6 +5,10 @@
  */
 package view;
 
+import bean.MljfsFuncionarios;
+import controles.FuncionariosController;
+import dao.FuncionariosDAO;
+import java.util.List;
 import javax.swing.JOptionPane;
 import tools.Util;
 
@@ -14,18 +18,25 @@ import tools.Util;
  */
 public class JDlgFuncionariosNovo extends javax.swing.JDialog {
 
+    private boolean incluindo = true;
+JDlgFuncionariosNovoIA jDlgFuncionariosNovoIA = new JDlgFuncionariosNovoIA(null,true);
+    private FuncionariosController funcionariosController = new FuncionariosController();
+    //private JDlgFuncionariosNovoIA jDlgFuncionariosNovoIA;
+
     /**
      * Creates new form JDlgProdutosNovo
      */
-    JDlgFuncionariosNovoIA jDlgFuncionariosNovoIA;
-
     public JDlgFuncionariosNovo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Funcionarios");
-        jDlgFuncionariosNovoIA = new JDlgFuncionariosNovoIA (null, true);
+        FuncionariosDAO funcionarios_DAO = new FuncionariosDAO();
+        List lista = funcionarios_DAO.listAll();
+        funcionariosController.setList(lista);
+        jTable1.setModel(funcionariosController);
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -113,22 +124,64 @@ public class JDlgFuncionariosNovo extends javax.swing.JDialog {
         // TODO add your handling code here:
         /**/
         if (Util.perguntar("Deseja excluir o Funcionario?") == true) {
-
+            int sel = jTable1.getSelectedRow();
+            MljfsFuncionarios funcionarios = funcionariosController.getBean(sel);
+            FuncionariosDAO funcionarios_DAO = new FuncionariosDAO();
+            funcionarios_DAO.delete(funcionarios);
+            JOptionPane.showMessageDialog(null, "Exclusão feita com sucesso!.");
+            
+        List lista = funcionarios_DAO.listAll();
+        funcionariosController.setList(lista);
+        jTable1.setModel(funcionariosController);
         } else {
-            //Util.mensagem(cadeia);
+            Util.mensagem("Operacao cancelada");
         }
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
+
+        this.incluindo = false;
+        incluindo = false;
+        setIncluindo(false);
         jDlgFuncionariosNovoIA.setTitle("Alteracao");
-        jDlgFuncionariosNovoIA.setVisible(true);
+        int rowSel = jTable1.getSelectedRow();
+        if (rowSel != -1) {
+            MljfsFuncionarios funcionarios = funcionariosController.getBean(rowSel);
+            jDlgFuncionariosNovoIA.beanView(funcionarios);
+
+        abrirTela();
+        } else {
+            Util.mensagem("Selecione um registro para alterar.");
+        }
+
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        jDlgFuncionariosNovoIA.setVisible(true);
+        this.incluindo = true;
+        incluindo = true;
+        setIncluindo(true);
+        jDlgFuncionariosNovoIA.setTitle("Inclusao");
+       
+        abrirTela();
+         FuncionariosDAO funcionarios_DAO = new FuncionariosDAO();
+        List lista = funcionarios_DAO.listAll();
+        funcionariosController.setList(lista);
+        jTable1.setModel(funcionariosController);
     }//GEN-LAST:event_jBtnIncluirActionPerformed
+    public boolean isIncluindo() {
+        return incluindo;
+    }
+
+    public void setIncluindo(boolean incluindo) {
+        this.incluindo = incluindo;
+    }
+    
+    private void abrirTela() {
+        jDlgFuncionariosNovoIA.setIncluindo(incluindo); // Configura a variável incluindo na Tela2
+        jDlgFuncionariosNovoIA.setVisible(true);
+    }
 
     /**
      * @param args the command line arguments

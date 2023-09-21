@@ -5,6 +5,11 @@
  */
 package view;
 
+import bean.MljfsFuncionarios;
+import controles.FuncionariosController;
+import dao.FuncionariosDAO;
+import java.util.Date;
+import java.util.List;
 import tools.Util;
 
 /**
@@ -12,15 +17,46 @@ import tools.Util;
  * @author Melany
  */
 public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
-
-    /**
-     * Creates new form JDlgFuncionariosNovoIa
-     */
+public FuncionariosController funcionariosController = new FuncionariosController();
+       
     public JDlgFuncionariosNovoIA(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Funcionario");
+       Util.limparCampos(jTxtId, jTxtNome, jTxtCargo, jTxtSetor, jFmtCelular, jFmtDataAdmicao, jFmtdataDem);
+    }
+    private boolean incluindo;
+
+     public void setIncluindo(boolean incluindo) {
+        this.incluindo = incluindo;
+
+     }
+    private MljfsFuncionarios viewBean(){
+        MljfsFuncionarios funcionarios = new MljfsFuncionarios();
+        
+        int id = Util.strInt(jTxtId.getText());
+        funcionarios.setMljfsId(id);
+        funcionarios.setMljfsNome(jTxtNome.getText());
+        funcionarios.setMljfsCargo(jTxtCargo.getText());
+        
+        Date dataAdmicao = Util.StrDate(jFmtDataAdmicao.getText());
+        funcionarios.setMljfsDataAdmissao(dataAdmicao);
+        
+        Date dataDemissao = Util.StrDate(jFmtdataDem.getText());
+        funcionarios.setMljfsDataDemissao(dataDemissao);
+        
+        funcionarios.setMljfsTelefone(jFmtCelular.getText());
+        funcionarios.setMljfsSetor(jTxtSetor.getText());
+        return funcionarios;
+    }
+    public void beanView(MljfsFuncionarios funcionarios){
+        jTxtId.setText(Util.intStr(funcionarios.getMljfsId()));
+        jTxtNome.setText(funcionarios.getMljfsNome());
+        jTxtCargo.setText(funcionarios.getMljfsCargo());
+        jFmtDataAdmicao.setText(Util.dateStr(funcionarios.getMljfsDataAdmissao()));
+        jFmtdataDem.setText(Util.dateStr(funcionarios.getMljfsDataDemissao()));
+        jFmtCelular.setText(funcionarios.getMljfsTelefone());
+        jTxtSetor.setText(funcionarios.getMljfsSetor());
     }
 
     /**
@@ -209,17 +245,25 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
+          
+       if (incluindo) {
+                   setTitle("Inclusao");
+             System.out.println("A variável booleana é verdadeira. Você está incluindo um novo funcionário.");
+         MljfsFuncionarios funcionarios = viewBean();
+         FuncionariosDAO funcionariosDAO = new FuncionariosDAO();
+        funcionariosDAO.insert(funcionarios);
+        setVisible(false);
+       
+        
+        } else {
+                   setTitle("Alteracao");
+            System.out.println("A variável booleana é falsa. Você está alterando um funcionário existente.");
+            MljfsFuncionarios funcionarios = viewBean();
+            FuncionariosDAO funcionariosDAO = new FuncionariosDAO();
+            funcionariosDAO.update(funcionarios);
+            setVisible(false);
+        }
 
-        /*desabilitar();
-        jBtnIncluir.setEnabled(true);
-        jBtnPesquisar.setEnabled(true);
-        jBtnCancelar.setEnabled(false);
-
-        Funcionarios_DAO funcionarios_DAO = new Funcionarios_DAO();
-        funcionarios_DAO.insert(viewBean());
-        JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso!");
-
-        limpardados();*/
         Util.limparCampos(jTxtId, jTxtNome, jTxtCargo, jFmtDataAdmicao, jFmtdataDem, jFmtCelular, jTxtSetor);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
@@ -230,7 +274,7 @@ public class JDlgFuncionariosNovoIA extends javax.swing.JDialog {
         jBtnPesquisar.setEnabled(true);
 
         limpardados();*/
-       // Util.limparCampos(jTxtId, jTxtNome, jTxtCargo, jFmtDataAdmicao, jFmtdataDem, jFmtCelular, jTxtSetor);
+        // Util.limparCampos(jTxtId, jTxtNome, jTxtCargo, jFmtDataAdmicao, jFmtdataDem, jFmtCelular, jTxtSetor);
         this.dispose();
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 

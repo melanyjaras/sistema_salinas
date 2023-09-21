@@ -47,9 +47,9 @@ public class Util {
 
     public static boolean perguntar(String cadeia) {
 
-        JOptionPane.showConfirmDialog(null, cadeia,
-                "Perguntar", JOptionPane.YES_NO_OPTION); //passa a pergunta que quer aqui
-        int resp = JOptionPane.showConfirmDialog(null, "Confirmar excluir?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        
+        int resp = JOptionPane.showConfirmDialog(null, cadeia,
+                "Perguntar", JOptionPane.YES_NO_OPTION);
         if (resp == JOptionPane.YES_OPTION) {
             return true;
         } else {
