@@ -148,7 +148,7 @@ public class JFrmMljfsMenu extends javax.swing.JFrame {
 
     private void jMnuFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuFuncionariosActionPerformed
         // TODO add your handling code here:
-         JDlgFuncionariosNovo funcionario = new JDlgFuncionariosNovo(this, true);
+         JDlgMljfsFuncionariosNovo funcionario = new JDlgMljfsFuncionariosNovo(this, true);
         funcionario.setLocationRelativeTo(null); // CENTRALIZA O JDIALOG.
         // this.dispose(); //FECHA O FORME PARA EXIBIR USUARIO
         this.setVisible(true); //oculta O FORME  PARA EXIBIR FUNCIONÁRIO
@@ -158,7 +158,7 @@ public class JFrmMljfsMenu extends javax.swing.JFrame {
 
     private void jMnuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuClientesActionPerformed
         // TODO add your handling code here:
-        JDlgCliente cliente = new JDlgCliente(this, true);
+        JDlgMljfsCliente cliente = new JDlgMljfsCliente(this, true);
         cliente.setLocationRelativeTo(null); // CENTRALIZA O JDIALOG.
         // this.dispose(); //FECHA O FORME PARA EXIBIR USUARIO
         this.setVisible(true); //oculta O FORME  PARA EXIBIR USUARIO
@@ -168,7 +168,7 @@ public class JFrmMljfsMenu extends javax.swing.JFrame {
 
     private void jMnuProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuProdutosActionPerformed
         // TODO add your handling code here:
-         JDlgProdutosNovo produtos = new JDlgProdutosNovo(this, true);
+         JDlgMljfsProdutosNovo produtos = new JDlgMljfsProdutosNovo(this, true);
         produtos.setLocationRelativeTo(null); // CENTRALIZA O JDIALOG.
         // this.dispose(); //FECHA O FORME PARA EXIBIR USUARIO
         this.setVisible(true); //oculta O FORME  PARA EXIBIR USUARIO
@@ -178,7 +178,7 @@ public class JFrmMljfsMenu extends javax.swing.JFrame {
 
     private void jMnuUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuUsuariosActionPerformed
         // TODO add your handling code here:
-         JDlgUsuarios usuarios = new JDlgUsuarios(this, true);
+         JDlgMljfsUsuarios usuarios = new JDlgMljfsUsuarios(this, true);
         usuarios.setLocationRelativeTo(null); // CENTRALIZA O JDIALOG.
         // this.dispose(); //FECHA O FORME PARA EXIBIR USUARIO
         this.setVisible(true); //oculta O FORME  PARA EXIBIR USUARIO
