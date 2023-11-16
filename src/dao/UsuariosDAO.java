@@ -62,7 +62,7 @@ public class UsuariosDAO extends DAO_Abstract {
     public Object list(int id) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MljfsUsuarios.class);
-        criteria.add(Restrictions.eq("idusuarios", id));
+        criteria.add(Restrictions.eq("mljfsId", id));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista.get(0);
@@ -75,6 +75,21 @@ public class UsuariosDAO extends DAO_Abstract {
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
+    }
+    public List listNomeSetor(String nome, String setor){
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MljfsUsuarios.class);
+        if(nome.equals("") && !setor.equals(" ")){
+            criteria.add(Restrictions.eq("mljfsSetor", setor));
+        } else 
+         if(setor.equals(" ") && !nome.equals("")){
+             criteria.add(Restrictions.ilike("mljfsNome", "%" + nome + "%" ));
+         } else{
+        criteria.add(Restrictions.ilike("mljfsNome", "%" + nome + "%" ));
+        criteria.add(Restrictions.eq("mljfsSetor", setor));}
+        List results = criteria.list();
+        session.getTransaction().commit();
+        return results;
     }
 
 }

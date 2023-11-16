@@ -57,5 +57,21 @@ public class ClienteDAO extends DAO_Abstract {
         session.getTransaction().commit();
         return lista;
     }
+     public List listNomeEstadoCivil(String nome, String estadoCivil){
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MljfsClientes.class);
+         if(nome.equals("") && !estadoCivil.equals(" ")){
+             criteria.add(Restrictions.eq("mljfsEstadoCivil", estadoCivil));
+         }else if(!nome.equals("") && estadoCivil.equals(" ")){
+        criteria.add(Restrictions.ilike("mljfsNome", "%" + nome + "%" ));}
+         else{
+             criteria.add(Restrictions.ilike("mljfsNome", "%" + nome + "%" ));
+         criteria.add(Restrictions.eq("mljfsEstadoCivil", estadoCivil));
+         }
+        List results = criteria.list();
+        session.getTransaction().commit();
+        return results;
+    }
+    
 
 }

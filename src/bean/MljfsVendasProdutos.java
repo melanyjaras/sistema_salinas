@@ -1,7 +1,8 @@
 package bean;
-// Generated 20/09/2023 18:06:06 by Hibernate Tools 4.3.1
+// Generated 15/11/2023 20:40:24 by Hibernate Tools 4.3.1
 
 
+import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,6 +25,7 @@ public class MljfsVendasProdutos  implements java.io.Serializable {
      private MljfsVendas mljfsVendas;
      private int mljfsQuantidade;
      private Double mljfsPrecoUnitario;
+     private Double mljfsPrecoTotal;
 
     public MljfsVendasProdutos() {
     }
@@ -32,11 +34,12 @@ public class MljfsVendasProdutos  implements java.io.Serializable {
     public MljfsVendasProdutos(int mljfsId) {
         this.mljfsId = mljfsId;
     }
-    public MljfsVendasProdutos(int mljfsId, MljfsVendas mljfsVendas, int mljfsQuantidade, Double mljfsPrecoUnitario) {
+    public MljfsVendasProdutos(int mljfsId, MljfsVendas mljfsVendas, int mljfsQuantidade, Double mljfsPrecoUnitario, Double mljfsPrecoTotal) {
        this.mljfsId = mljfsId;
        this.mljfsVendas = mljfsVendas;
        this.mljfsQuantidade = mljfsQuantidade;
        this.mljfsPrecoUnitario = mljfsPrecoUnitario;
+       this.mljfsPrecoTotal = mljfsPrecoTotal;
     }
    
      @Id 
@@ -52,7 +55,7 @@ public class MljfsVendasProdutos  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="fk_vendass")
+    @JoinColumn(name="mljfs_fk_vendas")
     public MljfsVendas getMljfsVendas() {
         return this.mljfsVendas;
     }
@@ -79,6 +82,16 @@ public class MljfsVendasProdutos  implements java.io.Serializable {
     
     public void setMljfsPrecoUnitario(Double mljfsPrecoUnitario) {
         this.mljfsPrecoUnitario = mljfsPrecoUnitario;
+    }
+
+    
+    @Column(name="mljfs_preco_total", precision=10)
+    public Double getMljfsPrecoTotal() {
+        return this.mljfsPrecoTotal;
+    }
+    
+    public void setMljfsPrecoTotal(Double mljfsPrecoTotal) {
+        this.mljfsPrecoTotal = mljfsPrecoTotal;
     }
 
 

@@ -48,15 +48,17 @@
                           <Component id="jFmtTelefone" alignment="0" min="-2" pref="157" max="-2" attributes="0"/>
                           <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTxtSetor" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                               <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jCboSetor" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                           <Component id="jPwfSenha" min="-2" pref="132" max="-2" attributes="0"/>
@@ -164,8 +166,8 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jTxtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTxtCargo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTxtSalario" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jFmtdataNasc" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTxtSalario" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                   </Group>
@@ -178,8 +180,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jFmtTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTxtSetor" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jPwfSenha" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jCboSetor" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -371,7 +373,29 @@
         <Property name="text" type="java.lang.String" value="Setor"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTxtSetor">
+    <Component class="javax.swing.JComboBox" name="jCboSetor">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="13">
+            <StringItem index="0" value="administracao"/>
+            <StringItem index="1" value="recursos humanos"/>
+            <StringItem index="2" value="financeiro"/>
+            <StringItem index="3" value="contabil"/>
+            <StringItem index="4" value="marketing e vendas"/>
+            <StringItem index="5" value="producao"/>
+            <StringItem index="6" value="log&#xed;stica"/>
+            <StringItem index="7" value="tecnologia da informacao"/>
+            <StringItem index="8" value="juridico"/>
+            <StringItem index="9" value="pesquisa"/>
+            <StringItem index="10" value="compras"/>
+            <StringItem index="11" value="suprimentos"/>
+            <StringItem index="12" value="atendimento ao cliente"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

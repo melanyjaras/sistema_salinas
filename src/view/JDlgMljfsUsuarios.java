@@ -38,7 +38,7 @@ public class JDlgMljfsUsuarios extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         setTitle("Usuarios");
 
-        Util.habilitar(false, jBtnAltera, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jTxtSetor, jPwfSenha);
+        Util.habilitar(false, jBtnAltera, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jCboSetor, jPwfSenha);
         jBtnIncluir.setEnabled(true);
         jBtnPesquisar.setEnabled(true);
         try {
@@ -63,7 +63,33 @@ public class JDlgMljfsUsuarios extends javax.swing.JDialog {
         Date dataNascimento = Util.StrDate(jFmtdataNasc.getText());
         usuarios.setMljfsDataNascimento(dataNascimento);
         usuarios.setMljfsTelefone(jFmtTelefone.getText());
-        usuarios.setMljfsSetor(jTxtSetor.getText());
+        if ((jCboSetor.getSelectedIndex() == 1)) {
+            usuarios.setMljfsSetor("administracao");
+        } else if ((jCboSetor.getSelectedIndex() == 2)) {
+            usuarios.setMljfsSetor("recursos humanos");
+        } else if ((jCboSetor.getSelectedIndex() == 3)) {
+            usuarios.setMljfsSetor("financeiro");
+        } else if ((jCboSetor.getSelectedIndex() == 4)) {
+            usuarios.setMljfsSetor("contabil");
+        } else if ((jCboSetor.getSelectedIndex() == 5)) {
+            usuarios.setMljfsSetor("marketing e vendas");
+        } else if ((jCboSetor.getSelectedIndex() == 6)) {
+            usuarios.setMljfsSetor("producao");
+        } else if ((jCboSetor.getSelectedIndex() == 7)) {
+            usuarios.setMljfsSetor("logistica");
+        } else if ((jCboSetor.getSelectedIndex() == 8)) {
+            usuarios.setMljfsSetor("tecnologia da informacao");
+        } else if ((jCboSetor.getSelectedIndex() == 9)) {
+            usuarios.setMljfsSetor("juridico");
+        } else if ((jCboSetor.getSelectedIndex() == 10)) {
+            usuarios.setMljfsSetor("pesquisa");
+        } else if ((jCboSetor.getSelectedIndex() == 11)) {
+            usuarios.setMljfsSetor("compras");
+        } else if ((jCboSetor.getSelectedIndex() == 12)) {
+            usuarios.setMljfsSetor("suprimentos");
+        } else {
+            usuarios.setMljfsSetor("atendimento ao cliente");
+        }
         usuarios.setMljfsSenha(jPwfSenha.getText());
 
         return usuarios;
@@ -79,7 +105,34 @@ public class JDlgMljfsUsuarios extends javax.swing.JDialog {
         jTxtSalario.setText(Util.doubleStr(usuarios.getMljfsSalario()));
         jFmtdataNasc.setText(Util.dateStr(usuarios.getMljfsDataNascimento()));
         jFmtTelefone.setText(usuarios.getMljfsTelefone());
-        jTxtSetor.setText(usuarios.getMljfsSetor());
+        String setor = usuarios.getMljfsSetor();
+        if (setor.equals("administracao")) {
+            jCboSetor.setSelectedIndex(1);
+        } else if (setor.equals("recursos humanos")) {
+            jCboSetor.setSelectedIndex(2);
+        } else if (setor.equals("financeiro")) {
+            jCboSetor.setSelectedIndex(3);
+        } else if (setor.equals("contabil")) {
+            jCboSetor.setSelectedIndex(4);
+        } else if (setor.equals("marketing e vendas")) {
+            jCboSetor.setSelectedIndex(5);
+        } else if (setor.equals("producao")) {
+            jCboSetor.setSelectedIndex(6);
+        } else if (setor.equals("logistica")) {
+            jCboSetor.setSelectedIndex(7);
+        } else if (setor.equals("tecnologia da informacao")) {
+            jCboSetor.setSelectedIndex(8);
+        } else if (setor.equals("juridico")) {
+            jCboSetor.setSelectedIndex(9);
+        } else if (setor.equals("pesquisa")) {
+            jCboSetor.setSelectedIndex(10);
+        } else if (setor.equals("compras")) {
+            jCboSetor.setSelectedIndex(11);
+        } else if (setor.equals("suprimentos")) {
+            jCboSetor.setSelectedIndex(12);
+        } else {
+            jCboSetor.setSelectedIndex(-1);
+        }
         jPwfSenha.setText(usuarios.getMljfsSenha());
     }
 
@@ -119,7 +172,7 @@ public class JDlgMljfsUsuarios extends javax.swing.JDialog {
         jFmtTelefone = new javax.swing.JFormattedTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTxtSetor = new javax.swing.JTextField();
+        jCboSetor = new javax.swing.JComboBox<>();
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -246,6 +299,8 @@ public class JDlgMljfsUsuarios extends javax.swing.JDialog {
 
         jLabel12.setText("Setor");
 
+        jCboSetor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "administracao", "recursos humanos", "financeiro", "contabil", "marketing e vendas", "producao", "logística", "tecnologia da informacao", "juridico", "pesquisa", "compras", "suprimentos", "atendimento ao cliente" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -257,13 +312,14 @@ public class JDlgMljfsUsuarios extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jFmtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11))
-                        .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTxtSetor)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel12))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jCboSetor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
                             .addComponent(jPwfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -347,8 +403,8 @@ public class JDlgMljfsUsuarios extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTxtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTxtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFmtdataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jFmtdataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTxtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(48, 48, 48))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -358,8 +414,8 @@ public class JDlgMljfsUsuarios extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jFmtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTxtSetor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPwfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jPwfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCboSetor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnIncluir)
@@ -380,7 +436,7 @@ public class JDlgMljfsUsuarios extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:    
-        Util.habilitar(true, jBtnAltera, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jTxtSetor, jPwfSenha);
+        Util.habilitar(true, jBtnAltera, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jCboSetor, jPwfSenha);
         jBtnIncluir.setEnabled(false);
         jBtnExcluir.setEnabled(false);
         jBtnPesquisar.setEnabled(false);
@@ -403,25 +459,25 @@ public class JDlgMljfsUsuarios extends javax.swing.JDialog {
         }
 
         //limparDados();
-        Util.habilitar(false, jBtnAltera, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jTxtSetor, jPwfSenha);
+        Util.habilitar(false, jBtnAltera, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jCboSetor, jPwfSenha);
         jBtnIncluir.setEnabled(true);
         jBtnPesquisar.setEnabled(true);
-        Util.limparCampos(jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jTxtSetor, jPwfSenha);
+        Util.limparCampos(jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jCboSetor, jPwfSenha);
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(false, jBtnAltera, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jTxtSetor, jPwfSenha);
+        Util.habilitar(false, jBtnAltera, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jCboSetor, jPwfSenha);
         jBtnIncluir.setEnabled(true);
         jBtnPesquisar.setEnabled(true);
 
-        Util.limparCampos(jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jTxtSetor, jPwfSenha);
+        Util.limparCampos(jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jCboSetor, jPwfSenha);
         // limparDados();
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnAlteraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlteraActionPerformed
         incluindo = false;
-        Util.habilitar(true, jBtnAltera, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jTxtSetor, jPwfSenha);
+        Util.habilitar(true, jBtnAltera, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jCboSetor, jPwfSenha);
 
         Util.habilitar(false, jBtnAltera, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar);
         jBtnCancelar.setEnabled(true);
@@ -435,7 +491,7 @@ public class JDlgMljfsUsuarios extends javax.swing.JDialog {
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
 
-        Util.habilitar(false, jBtnAltera, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jTxtSetor, jPwfSenha);
+        Util.habilitar(false, jBtnAltera, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jCboSetor, jPwfSenha);
         jBtnIncluir.setEnabled(true);
         jBtnPesquisar.setEnabled(true);
         jBtnCancelar.setEnabled(false);
@@ -451,7 +507,7 @@ public class JDlgMljfsUsuarios extends javax.swing.JDialog {
             Util.mensagem("Usuario alterado!");
         }
 
-        Util.limparCampos(jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jTxtSetor, jPwfSenha);
+        Util.limparCampos(jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jCboSetor, jPwfSenha);
         //limparDados();
 
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
@@ -467,16 +523,16 @@ public class JDlgMljfsUsuarios extends javax.swing.JDialog {
         jDlgUsuariosPesquisa.setTelaAnterior(this);
         jDlgUsuariosPesquisa.setVisible(true);
         if (alterando) {
-            Util.habilitar(false, jBtnAltera, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jTxtSetor, jPwfSenha);
+            Util.habilitar(false, jBtnAltera, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jCboSetor, jPwfSenha);
             jBtnIncluir.setEnabled(true);
             jBtnPesquisar.setEnabled(true);
             jBtnAltera.setEnabled(true);
             jBtnExcluir.setEnabled(true);
             jBtnCancelar.setEnabled(true);
-        }else{
-            Util.habilitar(false, jBtnAltera, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jTxtSetor, jPwfSenha);
+        } else {
+            Util.habilitar(false, jBtnAltera, jBtnCancelar, jBtnConfirmar, jBtnExcluir, jBtnIncluir, jBtnPesquisar, jTxtId, jTxtNome, jTxtSobrenome, jTxtEmail, jTxtCargo, jTxtSalario, jFmtdataNasc, jFmtTelefone, jCboSetor, jPwfSenha);
             jBtnIncluir.setEnabled(true);
-            jBtnPesquisar.setEnabled(true); 
+            jBtnPesquisar.setEnabled(true);
         }
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
@@ -548,6 +604,7 @@ public class JDlgMljfsUsuarios extends javax.swing.JDialog {
     private javax.swing.JButton jBtnExcluir;
     private javax.swing.JButton jBtnIncluir;
     private javax.swing.JButton jBtnPesquisar;
+    private javax.swing.JComboBox<String> jCboSetor;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JFormattedTextField jFmtTelefone;
     private javax.swing.JFormattedTextField jFmtdataNasc;
@@ -568,7 +625,6 @@ public class JDlgMljfsUsuarios extends javax.swing.JDialog {
     private javax.swing.JTextField jTxtId;
     private javax.swing.JTextField jTxtNome;
     private javax.swing.JTextField jTxtSalario;
-    private javax.swing.JTextField jTxtSetor;
     private javax.swing.JTextField jTxtSobrenome;
     // End of variables declaration//GEN-END:variables
 }

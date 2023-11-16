@@ -1,11 +1,15 @@
 package bean;
-// Generated 20/09/2023 18:06:06 by Hibernate Tools 4.3.1
+// Generated 15/11/2023 20:40:24 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,6 +41,7 @@ public class MljfsClientes  implements java.io.Serializable {
      private Date mljfsDataCadastro;
      private String mljfsObservacoes;
 
+
     public MljfsClientes() {
     }
 
@@ -45,7 +50,7 @@ public class MljfsClientes  implements java.io.Serializable {
         this.mljfsId = mljfsId;
         this.mljfsNome = mljfsNome;
     }
-    public MljfsClientes(int mljfsId, String mljfsNome, String mljfsSobrenome, String mljfsEmail, String mljfsTelefone, String mljfsEndereco, String mljfsCidade, String mljfsEstado, String mljfsCep, Date mljfsDataNascimento, String mljfsGenero, String mljfsEstadoCivil, String mljfsProfissao, String mljfsPais, Date mljfsDataCadastro, String mljfsObservacoes) {
+    public MljfsClientes(int mljfsId, String mljfsNome, String mljfsSobrenome, String mljfsEmail, String mljfsTelefone, String mljfsEndereco, String mljfsCidade, String mljfsEstado, String mljfsCep, Date mljfsDataNascimento, String mljfsGenero, String mljfsEstadoCivil, String mljfsProfissao, String mljfsPais, Date mljfsDataCadastro, String mljfsObservacoes, Set mljfsVendases) {
        this.mljfsId = mljfsId;
        this.mljfsNome = mljfsNome;
        this.mljfsSobrenome = mljfsSobrenome;
@@ -62,6 +67,7 @@ public class MljfsClientes  implements java.io.Serializable {
        this.mljfsPais = mljfsPais;
        this.mljfsDataCadastro = mljfsDataCadastro;
        this.mljfsObservacoes = mljfsObservacoes;
+
     }
    
      @Id 

@@ -5,7 +5,6 @@
  */
 package dao;
 
-import bean.MljfsClientes;
 import bean.MljfsFuncionarios;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -44,7 +43,7 @@ public class FuncionariosDAO extends DAO_Abstract {
     public Object list(int id) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MljfsFuncionarios.class);
-        criteria.add(Restrictions.eq("idClienteEma", id));
+        criteria.add(Restrictions.eq("mljfsId", id));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista.get(0);
@@ -59,13 +58,19 @@ public class FuncionariosDAO extends DAO_Abstract {
         return lista;
     }
 
-    public static void main(String[] args) {
-        MljfsClientes cliente = new MljfsClientes();
-        cliente.setMljfsId(1);
-        cliente.setMljfsNome("Melany");
-
-        ClienteDAO cliente_DAO = new ClienteDAO();
-        cliente_DAO.insert(cliente);
-        System.out.println("deu certo");
+     public List listNomeSalario(String nome, String cargo){
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MljfsFuncionarios.class);
+         if(nome.equals("") && !cargo.equals("")){
+             criteria.add(Restrictions.ilike("mljfsCargo","%" +cargo + "%" ));
+         }else if(!nome.equals("") && cargo.equals("")){
+        criteria.add(Restrictions.ilike("mljfsNome", "%" + nome + "%" ));}
+         else{
+             criteria.add(Restrictions.ilike("mljfsNome", "%" + nome + "%" ));
+         criteria.add(Restrictions.ilike("mljfsCargo","%" + cargo + "%" ));
+         }
+        List results = criteria.list();
+        session.getTransaction().commit();
+        return results;
     }
 }

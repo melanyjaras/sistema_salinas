@@ -6,6 +6,11 @@
 
 package view;
 
+import query.JDlgConsultaClientes;
+import query.JDlgConsultaFuncionarios;
+import query.JDlgConsultaProdutos;
+import query.JDlgConsultaUsuarios;
+
 /**
  *
  * @author Melany
@@ -32,6 +37,10 @@ public class JFrmMljfsMenu extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jToolBar1 = new javax.swing.JToolBar();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMnuSair = new javax.swing.JMenu();
         jMnuClientes = new javax.swing.JMenuItem();
@@ -42,17 +51,78 @@ public class JFrmMljfsMenu extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMnuVendas = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
+        setBackground(new java.awt.Color(51, 8, 8));
+        setForeground(new java.awt.Color(56, 7, 7));
+        getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(75, 46, 46));
         jPanel1.setForeground(new java.awt.Color(73, 37, 37));
+        jPanel1.setLayout(null);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Foto Fundo Loja_resized_resized.png"))); // NOI18N
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel1.setMaximumSize(getMaximumSize());
         jPanel1.add(jLabel1);
+        jLabel1.setBounds(14, 5, 1300, 679);
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 30, 1328, 698);
+
+        jToolBar1.setBackground(new java.awt.Color(57, 12, 12));
+        jToolBar1.setForeground(new java.awt.Color(70, 16, 16));
+        jToolBar1.setRollover(true);
+        jToolBar1.setMaximumSize(new java.awt.Dimension(50, 2));
+
+        jButton1.setBackground(new java.awt.Color(72, 2, 2));
+        jButton1.setForeground(new java.awt.Color(59, 6, 6));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/power.png"))); // NOI18N
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton1);
+
+        jButton2.setBackground(new java.awt.Color(72, 5, 5));
+        jButton2.setForeground(new java.awt.Color(36, 8, 8));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/businessman.png"))); // NOI18N
+        jButton2.setFocusable(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton2);
+
+        jButton3.setBackground(new java.awt.Color(72, 9, 9));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/profit.png"))); // NOI18N
+        jButton3.setFocusable(false);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton3);
+
+        getContentPane().add(jToolBar1);
+        jToolBar1.setBounds(0, 0, 1328, 30);
 
         jMenuBar1.setBackground(new java.awt.Color(78, 32, 32));
         jMenuBar1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(87, 23, 23)));
@@ -125,18 +195,53 @@ public class JFrmMljfsMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        setJMenuBar(jMenuBar1);
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons8-pesquisa-24.png"))); // NOI18N
+        jMenu1.setText("Consultas");
+        jMenu1.setFont(new java.awt.Font("Arial Narrow", 3, 12)); // NOI18N
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisa cliente.png"))); // NOI18N
+        jMenuItem1.setText("Consulta Cliente");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisa funcionario.png"))); // NOI18N
+        jMenuItem2.setText("Consulta Funcionario");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisa produto.png"))); // NOI18N
+        jMenuItem3.setText("Consulta Produtos");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisa usuario.png"))); // NOI18N
+        jMenuItem4.setText("Consulta Usuarios");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisa vendas.png"))); // NOI18N
+        jMenuItem6.setText("Consulta Vendas");
+        jMenu1.add(jMenuItem6);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -196,6 +301,61 @@ public class JFrmMljfsMenu extends javax.swing.JFrame {
         vendas.setVisible(true);*/
     }//GEN-LAST:event_jMnuVendasActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+     this.dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+     JDlgMljfsCliente cliente = new JDlgMljfsCliente(this, true);
+        cliente.setLocationRelativeTo(null); // CENTRALIZA O JDIALOG.
+        // this.dispose(); //FECHA O FORME PARA EXIBIR USUARIO
+        this.setVisible(true); //oculta O FORME  PARA EXIBIR USUARIO
+
+        cliente.setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        JDlgVendasProduto vendas = new JDlgVendasProduto(this,true);
+        vendas.setLocationRelativeTo(null);
+        this.setVisible(true);
+        vendas.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        JDlgConsultaClientes cliente = new JDlgConsultaClientes(this,true);
+        cliente.setLocationRelativeTo(null);
+        this.setVisible(true);
+        cliente.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        JDlgConsultaProdutos produtos = new JDlgConsultaProdutos(this,true);
+        produtos.setLocationRelativeTo(null);
+        this.setVisible(true);
+        produtos.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        JDlgConsultaFuncionarios funcionarios = new JDlgConsultaFuncionarios(this,true);
+        funcionarios.setLocationRelativeTo(null);
+        this.setVisible(true);
+        funcionarios.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        JDlgConsultaUsuarios usuarios = new JDlgConsultaUsuarios(this,true);
+        usuarios.setLocationRelativeTo(null);
+        this.setVisible(true);
+        usuarios.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -233,10 +393,19 @@ public class JFrmMljfsMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMnuClientes;
     private javax.swing.JMenuItem jMnuFuncionarios;
     private javax.swing.JMenuItem jMnuProdutos;
@@ -245,6 +414,7 @@ public class JFrmMljfsMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMnuVendas;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 
 }

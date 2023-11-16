@@ -504,7 +504,7 @@ public class JDlgMljfsCliente extends javax.swing.JDialog {
                         .addComponent(jBtnConfirmar)
                         .addComponent(jBtnPesquisar))
                     .addComponent(jBtnAlterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

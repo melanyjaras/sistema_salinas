@@ -57,4 +57,19 @@ public class ProdutosDAO extends DAO_Abstract{
         session.getTransaction().commit();
         return lista;
     }
+    public List listNomeQuantidade(String nome, int quantidade){
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MljfsProdutos.class);
+        if(nome.equals("") && quantidade != 0){
+            criteria.add(Restrictions.le("mljfsQuantidadeEmEstoque", quantidade));
+        } else 
+         if(quantidade == 0 && !nome.equals("")){
+             criteria.add(Restrictions.ilike("mljfsNome", "%" + nome + "%" ));
+         } else{
+        criteria.add(Restrictions.ilike("mljfsNome", "%" + nome + "%" ));
+        criteria.add(Restrictions.le("mljfsQuantidadeEmEstoque", quantidade));}
+        List results = criteria.list();
+        session.getTransaction().commit();
+        return results;
+    }
 }
