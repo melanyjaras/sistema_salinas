@@ -1,11 +1,14 @@
 package bean;
-// Generated 15/11/2023 20:40:24 by Hibernate Tools 4.3.1
+// Generated 05/12/2023 08:44:27 by Hibernate Tools 4.3.1
 
 
-import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -39,6 +42,7 @@ public class MljfsProdutos  implements java.io.Serializable {
        this.mljfsPreco = mljfsPreco;
        this.mljfsQuantidadeEmEstoque = mljfsQuantidadeEmEstoque;
        this.mljfsDescricaoDoProduto = mljfsDescricaoDoProduto;
+       //this.mljfsVendasProdutoses = mljfsVendasProdutoses;
     }
    
      @Id 
@@ -92,6 +96,8 @@ public class MljfsProdutos  implements java.io.Serializable {
     public void setMljfsDescricaoDoProduto(String mljfsDescricaoDoProduto) {
         this.mljfsDescricaoDoProduto = mljfsDescricaoDoProduto;
     }
+
+
 
 
 

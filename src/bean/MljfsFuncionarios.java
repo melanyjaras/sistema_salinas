@@ -1,16 +1,10 @@
 package bean;
-// Generated 15/11/2023 20:40:24 by Hibernate Tools 4.3.1
+// Generated 05/12/2023 08:44:27 by Hibernate Tools 4.3.1
 
-
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,7 +36,7 @@ public class MljfsFuncionarios  implements java.io.Serializable {
         this.mljfsId = mljfsId;
         this.mljfsNome = mljfsNome;
     }
-    public MljfsFuncionarios(int mljfsId, String mljfsNome, String mljfsCargo, Double mljfsSalario, Date mljfsDataAdmissao, Date mljfsDataDemissao, String mljfsTelefone, String mljfsSetor, Set mljfsVendases) {
+    public MljfsFuncionarios(int mljfsId, String mljfsNome, String mljfsCargo, Double mljfsSalario, Date mljfsDataAdmissao, Date mljfsDataDemissao, String mljfsTelefone, String mljfsSetor) {
        this.mljfsId = mljfsId;
        this.mljfsNome = mljfsNome;
        this.mljfsCargo = mljfsCargo;
@@ -136,6 +130,9 @@ public class MljfsFuncionarios  implements java.io.Serializable {
     }
 
 
+public String toString(){
+    return mljfsNome;
+}
 
 
 }

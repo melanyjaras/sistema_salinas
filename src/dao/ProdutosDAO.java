@@ -21,6 +21,8 @@ public class ProdutosDAO extends DAO_Abstract{
         session.beginTransaction(); // É obrigatorio ter a transação com o hibernate e terminar com commit().
         session.save(object);
         session.getTransaction().commit();
+        
+                
     }
 
     @Override

@@ -1,8 +1,7 @@
 package bean;
-// Generated 15/11/2023 20:40:24 by Hibernate Tools 4.3.1
+// Generated 05/12/2023 08:44:27 by Hibernate Tools 4.3.1
 
 
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,10 +21,10 @@ public class MljfsVendasProdutos  implements java.io.Serializable {
 
 
      private int mljfsId;
+     private MljfsProdutos mljfsProdutos;
      private MljfsVendas mljfsVendas;
      private int mljfsQuantidade;
      private Double mljfsPrecoUnitario;
-     private Double mljfsPrecoTotal;
 
     public MljfsVendasProdutos() {
     }
@@ -34,12 +33,12 @@ public class MljfsVendasProdutos  implements java.io.Serializable {
     public MljfsVendasProdutos(int mljfsId) {
         this.mljfsId = mljfsId;
     }
-    public MljfsVendasProdutos(int mljfsId, MljfsVendas mljfsVendas, int mljfsQuantidade, Double mljfsPrecoUnitario, Double mljfsPrecoTotal) {
+    public MljfsVendasProdutos(int mljfsId, MljfsProdutos mljfsProdutos, MljfsVendas mljfsVendas, int mljfsQuantidade, Double mljfsPrecoUnitario) {
        this.mljfsId = mljfsId;
+       this.mljfsProdutos = mljfsProdutos;
        this.mljfsVendas = mljfsVendas;
        this.mljfsQuantidade = mljfsQuantidade;
        this.mljfsPrecoUnitario = mljfsPrecoUnitario;
-       this.mljfsPrecoTotal = mljfsPrecoTotal;
     }
    
      @Id 
@@ -55,7 +54,17 @@ public class MljfsVendasProdutos  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="mljfs_fk_vendas")
+    @JoinColumn(name="fk_mljfs_produto")
+    public MljfsProdutos getMljfsProdutos() {
+        return this.mljfsProdutos;
+    }
+    
+    public void setMljfsProdutos(MljfsProdutos mljfsProdutos) {
+        this.mljfsProdutos = mljfsProdutos;
+    }
+
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="fk_mljfs_vendas")
     public MljfsVendas getMljfsVendas() {
         return this.mljfsVendas;
     }
@@ -82,16 +91,6 @@ public class MljfsVendasProdutos  implements java.io.Serializable {
     
     public void setMljfsPrecoUnitario(Double mljfsPrecoUnitario) {
         this.mljfsPrecoUnitario = mljfsPrecoUnitario;
-    }
-
-    
-    @Column(name="mljfs_preco_total", precision=10)
-    public Double getMljfsPrecoTotal() {
-        return this.mljfsPrecoTotal;
-    }
-    
-    public void setMljfsPrecoTotal(Double mljfsPrecoTotal) {
-        this.mljfsPrecoTotal = mljfsPrecoTotal;
     }
 
 

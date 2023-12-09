@@ -5,11 +5,27 @@
  */
 package view;
 
+import bean.MljfsProdutos;
+import bean.MljfsVendasProdutos;
+import controles.VendasProdutosControle;
+import dao.ProdutosDAO;
+import java.util.List;
+import tools.Util;
+
 /**
  *
  * @author Melany
  */
 public class JDlgVendasProduto extends javax.swing.JDialog {
+
+    JDlgMljfsVendas jDlgMljfsVendas = new JDlgMljfsVendas(null, true);
+
+    private boolean incluindo;
+
+    public void setIncluindo(boolean incluindo) {
+        this.incluindo = incluindo;
+
+    }
 
     /**
      * Creates new form JDlgVendasProduto
@@ -17,6 +33,74 @@ public class JDlgVendasProduto extends javax.swing.JDialog {
     public JDlgVendasProduto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
+        jTxtValTot.setEnabled(false);
+        ProdutosDAO produtos_DAO = new ProdutosDAO();
+        List listaCbo = produtos_DAO.listAll();
+        for (int i = 0; i < listaCbo.size(); i++) {
+            jCboNome.addItem((MljfsProdutos) listaCbo.get(i));
+        }
+    }
+
+    public void setTelaAnterior(JDlgMljfsVendas jDlgVendas) {
+        this.jDlgMljfsVendas = jDlgVendas;
+    }
+
+    private MljfsProdutos viewBean() {
+        MljfsProdutos produtos = new MljfsProdutos();
+
+        if (jCboNome.getSelectedIndex() == 1) {
+            produtos.setMljfsNome("Blusas");
+        } else if (jCboNome.getSelectedIndex() == 2) {
+            produtos.setMljfsNome("Vestidos");
+        } else if (jCboNome.getSelectedIndex() == 3) {
+            produtos.setMljfsNome("Calças");
+        } else if (jCboNome.getSelectedIndex() == 4) {
+            produtos.setMljfsNome("Saias");
+        } else if (jCboNome.getSelectedIndex() == 5) {
+            produtos.setMljfsNome("Casacos e Jaquetas");
+        } else if (jCboNome.getSelectedIndex() == 6) {
+            produtos.setMljfsNome("Roupas Íntimas");
+        } else if (jCboNome.getSelectedIndex() == 7) {
+            produtos.setMljfsNome("Acessórios");
+        } else if (jCboNome.getSelectedIndex() == 8) {
+            produtos.setMljfsNome("Calçados");
+        } else if (jCboNome.getSelectedIndex() == 9) {
+            produtos.setMljfsNome("Moda Praia");
+        }
+        Double preco = Util.strDouble(jTxtValUni.getText());
+        produtos.setMljfsPreco(preco);
+        int quantidade = Util.strInt(jTxtValTot.getText());
+        produtos.setMljfsQuantidadeEmEstoque(quantidade);
+        produtos.setMljfsDescricaoDoProduto((String) jSpnQuantidade.getValue());
+        return produtos;
+
+    }
+
+    public void beanView(MljfsVendasProdutos produtos) {
+        MljfsProdutos nomeProduto = produtos.getMljfsProdutos();
+        if (nomeProduto.equals("Blusas")) {
+            jCboNome.setSelectedIndex(1);
+        } else if (nomeProduto.equals("Vestidos")) {
+            jCboNome.setSelectedIndex(2);
+        } else if (nomeProduto.equals("Calças")) {
+            jCboNome.setSelectedIndex(3);
+        } else if (nomeProduto.equals("Saias")) {
+            jCboNome.setSelectedIndex(4);
+        } else if (nomeProduto.equals("Casacos e Jaquetas")) {
+            jCboNome.setSelectedIndex(5);
+        } else if (nomeProduto.equals("Roupas Íntimas")) {
+            jCboNome.setSelectedIndex(6);
+        } else if (nomeProduto.equals("Acessórios")) {
+            jCboNome.setSelectedIndex(7);
+        } else if (nomeProduto.equals("Calçados")) {
+            jCboNome.setSelectedIndex(8);
+        } else if (nomeProduto.equals("Moda Praia")) {
+            jCboNome.setSelectedIndex(9);
+        }
+
+        jTxtValUni.setText(Util.doubleStr(produtos.getMljfsPrecoUnitario()));
+        jSpnQuantidade.setValue(Util.intStr(produtos.getMljfsQuantidade()));
     }
 
     /**
@@ -29,7 +113,6 @@ public class JDlgVendasProduto extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTxtProduto = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jSpnQuantidade = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
@@ -38,6 +121,7 @@ public class JDlgVendasProduto extends javax.swing.JDialog {
         jTxtValTot = new javax.swing.JTextField();
         jBtnOk = new javax.swing.JButton();
         jBtnCancelar = new javax.swing.JButton();
+        jCboNome = new javax.swing.JComboBox<MljfsProdutos>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -45,12 +129,29 @@ public class JDlgVendasProduto extends javax.swing.JDialog {
 
         jLabel2.setText("Quantidade");
 
+        jSpnQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jSpnQuantidadeKeyReleased(evt);
+            }
+        });
+
         jLabel3.setText("Valor Unitário");
+
+        jTxtValUni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTxtValUniKeyReleased(evt);
+            }
+        });
 
         jLabel4.setText("Valor Total");
 
         jBtnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/confirmacao2(1).png"))); // NOI18N
         jBtnOk.setText("Ok");
+        jBtnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnOkActionPerformed(evt);
+            }
+        });
 
         jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancelar2(1).png"))); // NOI18N
         jBtnCancelar.setText("Cancelar");
@@ -60,35 +161,45 @@ public class JDlgVendasProduto extends javax.swing.JDialog {
             }
         });
 
+        jCboNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jCboNomeKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTxtProduto)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(54, 54, 54)
-                                .addComponent(jLabel3)
-                                .addGap(41, 41, 41)
-                                .addComponent(jLabel4)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSpnQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTxtValUni, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jBtnOk)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBtnCancelar))
-                            .addComponent(jTxtValTot))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(54, 54, 54)
+                                        .addComponent(jLabel3)
+                                        .addGap(41, 41, 41)
+                                        .addComponent(jLabel4)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jSpnQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTxtValUni, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jBtnOk)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jBtnCancelar))
+                                    .addComponent(jTxtValTot)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jCboNome, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -96,9 +207,9 @@ public class JDlgVendasProduto extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTxtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
+                .addComponent(jCboNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
@@ -120,7 +231,58 @@ public class JDlgVendasProduto extends javax.swing.JDialog {
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jBtnCancelarActionPerformed
+
+    private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
+        // TODO add your handling code here:
+        MljfsVendasProdutos mljfsVendasProdutos = new MljfsVendasProdutos();
+        mljfsVendasProdutos.setMljfsProdutos((MljfsProdutos) jCboNome.getSelectedItem());
+        mljfsVendasProdutos.setMljfsQuantidade((int) jSpnQuantidade.getValue());
+        mljfsVendasProdutos.setMljfsPrecoUnitario(Util.strDouble(jTxtValUni.getText()));
+        if (getTitle().toUpperCase().substring(0, 1).equals("I")) {
+            jDlgMljfsVendas.vendasProdutosControle.addBean(mljfsVendasProdutos);
+
+        } else {
+            jDlgMljfsVendas.vendasProdutosControle.updateBean(jDlgMljfsVendas.getSelectedRowProd(), mljfsVendasProdutos);
+
+        }
+        this.dispose();
+    }//GEN-LAST:event_jBtnOkActionPerformed
+
+    private void jSpnQuantidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSpnQuantidadeKeyReleased
+        // TODO add your handling code here:
+
+        if (jSpnQuantidade.getValue() != "0") {
+            double unitario = Util.strDouble(jTxtValUni.getText());
+            int quantidade = (int) jSpnQuantidade.getValue();
+            jTxtValTot.setText(String.valueOf(quantidade * unitario));
+        } else {
+            jTxtValTot.setText("0");
+        }
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_jSpnQuantidadeKeyReleased
+
+    private void jTxtValUniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtValUniKeyReleased
+        // TODO add your handling code here:
+        if (jTxtValUni.getText().isEmpty() == false) {
+            double unitario = Util.strDouble(jTxtValUni.getText());
+            int quantidade = (int) jSpnQuantidade.getValue();
+            jTxtValTot.setText(String.valueOf(quantidade * unitario));
+        }
+    }//GEN-LAST:event_jTxtValUniKeyReleased
+
+    private void jCboNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jCboNomeKeyReleased
+        // TODO add your handling code here:
+        if (jCboNome.getSelectedIndex() != -1) {
+            jSpnQuantidade.setValue("1");
+            MljfsProdutos mljfsProdutos = (MljfsProdutos) jCboNome.getSelectedItem();
+            jSpnQuantidade.setValue(mljfsProdutos.getMljfsPreco());
+
+        }
+    }//GEN-LAST:event_jCboNomeKeyReleased
 
     /**
      * @param args the command line arguments
@@ -167,12 +329,12 @@ public class JDlgVendasProduto extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCancelar;
     private javax.swing.JButton jBtnOk;
+    private javax.swing.JComboBox<MljfsProdutos> jCboNome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JSpinner jSpnQuantidade;
-    private javax.swing.JTextField jTxtProduto;
     private javax.swing.JTextField jTxtValTot;
     private javax.swing.JTextField jTxtValUni;
     // End of variables declaration//GEN-END:variables

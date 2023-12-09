@@ -23,7 +23,7 @@ public class JDlgMljfsProdutosNovoIA extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         
-        Util.limparCampos(jTxtId, jTxtNome, jTxtPreco, jTxtDescricao, jTxtQuantidade);
+        Util.limparCampos(jTxtId, jCboNome, jTxtPreco, jTxtDescricao, jTxtQuantidade);
         
     }
     private boolean incluindo;
@@ -37,7 +37,26 @@ public class JDlgMljfsProdutosNovoIA extends javax.swing.JDialog {
         MljfsProdutos produtos = new MljfsProdutos();
         int id = Util.strInt(jTxtId.getText());
         produtos.setMljfsId(id);
-        produtos.setMljfsNome(jTxtNome.getText());
+     
+if (jCboNome.getSelectedIndex() == 1) {
+    produtos.setMljfsNome("Blusas");
+} else if (jCboNome.getSelectedIndex() == 2) {
+    produtos.setMljfsNome("Vestidos");
+} else if (jCboNome.getSelectedIndex() == 3) {
+    produtos.setMljfsNome("Calças");
+} else if (jCboNome.getSelectedIndex() == 4) {
+    produtos.setMljfsNome("Saias");
+} else if (jCboNome.getSelectedIndex() == 5) {
+    produtos.setMljfsNome("Casacos e Jaquetas");
+} else if (jCboNome.getSelectedIndex() == 6) {
+    produtos.setMljfsNome("Roupas Íntimas");
+} else if (jCboNome.getSelectedIndex() == 7) {
+    produtos.setMljfsNome("Acessórios");
+} else if (jCboNome.getSelectedIndex() == 8) {
+    produtos.setMljfsNome("Calçados");
+} else if (jCboNome.getSelectedIndex() == 9) {
+    produtos.setMljfsNome("Moda Praia");
+} 
         Double preco = Util.strDouble(jTxtPreco.getText());
         produtos.setMljfsPreco(preco);
         int quantidade = Util.strInt(jTxtQuantidade.getText());
@@ -49,7 +68,27 @@ public class JDlgMljfsProdutosNovoIA extends javax.swing.JDialog {
     
     public void beanView(MljfsProdutos produtos) {
         jTxtId.setText(Util.intStr(produtos.getMljfsId()));
-        jTxtNome.setText(produtos.getMljfsNome());
+        String nomeProduto = produtos.getMljfsNome();
+if (nomeProduto.equals("Blusas")) {
+    jCboNome.setSelectedIndex(1);
+} else if (nomeProduto.equals("Vestidos")) {
+    jCboNome.setSelectedIndex(2);
+} else if (nomeProduto.equals("Calças")) {
+    jCboNome.setSelectedIndex(3);
+} else if (nomeProduto.equals("Saias")) {
+    jCboNome.setSelectedIndex(4);
+} else if (nomeProduto.equals("Casacos e Jaquetas")) {
+    jCboNome.setSelectedIndex(5);
+} else if (nomeProduto.equals("Roupas Íntimas")) {
+    jCboNome.setSelectedIndex(6);
+} else if (nomeProduto.equals("Acessórios")) {
+    jCboNome.setSelectedIndex(7);
+} else if (nomeProduto.equals("Calçados")) {
+    jCboNome.setSelectedIndex(8);
+} else if (nomeProduto.equals("Moda Praia")) {
+    jCboNome.setSelectedIndex(9);
+}
+
         jTxtPreco.setText(Util.doubleStr(produtos.getMljfsPreco()));
         jTxtDescricao.setText(produtos.getMljfsDescricaoDoProduto());
         jTxtQuantidade.setText(Util.intStr(produtos.getMljfsQuantidadeEmEstoque()));
@@ -65,7 +104,6 @@ public class JDlgMljfsProdutosNovoIA extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTxtNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTxtPreco = new javax.swing.JTextField();
@@ -78,16 +116,11 @@ public class JDlgMljfsProdutosNovoIA extends javax.swing.JDialog {
         jTxtDescricao = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jTxtQuantidade = new javax.swing.JTextField();
+        jCboNome = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Nome");
-
-        jTxtNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtNomeActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Preco");
 
@@ -119,11 +152,13 @@ public class JDlgMljfsProdutosNovoIA extends javax.swing.JDialog {
         jPanel2.add(jBtnCancelar);
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 3, 24)); // NOI18N
-        jLabel5.setText("Produtos Novo");
+        jLabel5.setText("Produtos");
 
         jLabel3.setText("Descrição");
 
         jLabel4.setText("Quantidade em estoque");
+
+        jCboNome.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Blusas", "Vestidos", "Calças", "Saias", "Casacos e Jaquetas", "Roupas Íntimas", "Acessórios", "Calçados", "Moda Praia" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,31 +166,30 @@ public class JDlgMljfsProdutosNovoIA extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTxtDescricao)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addGap(45, 45, 45)
+                        .addComponent(jLabel1)
+                        .addGap(176, 176, 176))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(185, 185, 185)
-                        .addComponent(jLabel5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTxtDescricao, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTxtId, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTxtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addGap(45, 45, 45)
-                                        .addComponent(jLabel1))))
-                            .addComponent(jLabel3))
+                        .addComponent(jTxtId, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2)
-                            .addComponent(jTxtPreco, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
-                            .addComponent(jTxtQuantidade))))
+                        .addComponent(jCboNome, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2)
+                    .addComponent(jTxtPreco, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+                    .addComponent(jTxtQuantidade))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(224, 224, 224)
+                .addComponent(jLabel5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -171,8 +205,8 @@ public class JDlgMljfsProdutosNovoIA extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTxtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCboNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -187,10 +221,6 @@ public class JDlgMljfsProdutosNovoIA extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTxtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTxtNomeActionPerformed
 
     private void jTxtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtIdActionPerformed
         // TODO add your handling code here:
@@ -212,8 +242,10 @@ public class JDlgMljfsProdutosNovoIA extends javax.swing.JDialog {
             MljfsProdutos produtos = viewBean();
             ProdutosDAO produtosDAO = new ProdutosDAO();
             produtosDAO.update(produtos);
+            
         }
-        Util.limparCampos(jTxtId, jTxtNome, jTxtPreco, jTxtDescricao, jTxtQuantidade);
+        Util.limparCampos(jTxtId, jCboNome, jTxtPreco, jTxtDescricao, jTxtQuantidade);
+         this.dispose();
     }//GEN-LAST:event_jBtnOkActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
@@ -281,6 +313,7 @@ public class JDlgMljfsProdutosNovoIA extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCancelar;
     private javax.swing.JButton jBtnOk;
+    private javax.swing.JComboBox<String> jCboNome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -290,7 +323,6 @@ public class JDlgMljfsProdutosNovoIA extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTxtDescricao;
     private javax.swing.JTextField jTxtId;
-    private javax.swing.JTextField jTxtNome;
     private javax.swing.JTextField jTxtPreco;
     private javax.swing.JTextField jTxtQuantidade;
     // End of variables declaration//GEN-END:variables

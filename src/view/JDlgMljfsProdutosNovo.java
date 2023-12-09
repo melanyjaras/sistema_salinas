@@ -134,6 +134,7 @@ public class JDlgMljfsProdutosNovo extends javax.swing.JDialog {
         } else {
             Util.mensagem("Operacao cancelada");
         }
+       
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
@@ -151,6 +152,10 @@ public class JDlgMljfsProdutosNovo extends javax.swing.JDialog {
         } else {
             Util.mensagem("Selecione um registro para alterar.");
         }
+        ProdutosDAO produtos_DAO = new ProdutosDAO();
+        List lista = produtos_DAO.listAll();
+        produtosController.setList(lista);
+        jTable1.setModel(produtosController);
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed

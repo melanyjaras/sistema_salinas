@@ -43,13 +43,16 @@ public class VendasControle extends AbstractTableModel {
             return vendas.getMljfsData();
         }
         if (columnIndex == 2){
-            return vendas.getMljfsDataVenda();
-        }
-        if (columnIndex == 3){
             return vendas.getMljfsValorTotal();
         }
+        if (columnIndex == 3){
+            return vendas.getMljfsMetodoPagamento();
+        }
         if (columnIndex == 4){
-            return vendas.getMljfsClientes();
+            return vendas.getMljfsClienteId();
+        }
+        if (columnIndex == 5){
+            return vendas.getMljfsFkFuncionarios();
         }
         
         return "";
@@ -63,13 +66,16 @@ public class VendasControle extends AbstractTableModel {
             return "DATA";
         }
         if (column == 2){
-            return "DATA VENDA";
+            return "VALOR TOTAL";
         }
         if (column == 3){
-            return "VALOR TOTAL";
+            return "METODO PAGAMENTO";
         }
         if (column == 4){
             return "ID CLIENTE";
+        }
+        if (column == 5){
+            return "ID VENDEDOR";
         }
         return "";  
     }

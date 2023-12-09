@@ -40,7 +40,7 @@ public class VendasProdutosControle extends AbstractTableModel {
             return vendas.getMljfsId();
         }
         if (columnIndex == 1){
-            return vendas.getMljfsVendas();
+            return vendas.getMljfsProdutos();
         }
         if (columnIndex == 2){
             return vendas.getMljfsQuantidade();
@@ -49,18 +49,19 @@ public class VendasProdutosControle extends AbstractTableModel {
             return vendas.getMljfsPrecoUnitario();
         }
         if (columnIndex == 4){
-            return vendas.getMljfsPrecoTotal();
+            return vendas.getMljfsPrecoUnitario() * vendas.getMljfsQuantidade();
         }
         
         return "";
     }
     
+    @Override
     public String getColumnName(int column){
         if (column == 0){
             return "ID";
         }
         if (column == 1){
-            return "ID VENDAS";
+            return "PRODUTO";
         }
         if (column == 2){
             return "QUANTIDADE";
@@ -72,6 +73,28 @@ public class VendasProdutosControle extends AbstractTableModel {
             return "VALOR TOTAL";
         }
         return "";  
+    }
+     public void addBean(MljfsVendasProdutos mljfsVendasProdutos) {
+        lista.add(mljfsVendasProdutos);
+        this.fireTableDataChanged();
+    }
+     public void removeBean(int index) {
+        if (lista != null && index >= 0 && index < lista.size()) {
+            lista.remove(index);
+            this.fireTableDataChanged();
+        } else {
+            System.out.println("Índice inválido ou lista não inicializada corretamente.");
+        }
+    }
+    public void updateBean(int index, MljfsVendasProdutos mljfsVendasProdutos) {
+        lista.set(index, mljfsVendasProdutos);
+        this.fireTableDataChanged();
+    }
+
+    // Novo método para limpar a tabela
+    public void limparTabela() {
+        lista.clear();
+        this.fireTableDataChanged();
     }
 
 }
